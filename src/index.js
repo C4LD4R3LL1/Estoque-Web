@@ -27,7 +27,7 @@ app.get("/cadastro_produtos.html", (req, res) => {
     res.sendFile(path.join(__dirname, "../paginas", "cadastro_produtos.html"));
 });
 
-app.use(express.static("paginas"));
+app.use(express.static("public"));
 
 app.listen(3333, () => {
     console.log("Servidor pocando")

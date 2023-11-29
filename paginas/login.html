@@ -74,41 +74,29 @@
     <form>
         <h3>Login</h3>
         <h1 class="separador"></h1>
-        <input type="text" name="email" id="email" placeholder="Seu email..." onchange="validateFields()">
-        <input type="password" name="senha" id="password" placeholder="Sua senha...">
-        <input type="submit" name="Recuperarsenha" id="rec-senha" value="Recuperar Senha" disabled="true">
-        <input type="submit" name="acao" id="logar" value="Logar" disabled="true">
-        <input type="submit" name="registerr" value="Registrar" disabled="true">
+        <input type="text" name="email" id="email" onchange="validateLogin()" placeholder="Seu email...">
+        <input type="password" name="senha" id="password" onchange="validateLogin()" placeholder="Sua senha...">
+        <input type="submit" name="acao" id="logar" onchange="validateLogin()" value="Logar">
+        <input type="submit" name="registerr" value="Registrar">
     </form>
 </body>
 
 <script>
-    function validateFields() {
-        const emailValid = isEmailValid();
-        document.getElementById('rec-senha').disabled = !emailValid;
+    function validateLogin() {
+        const emailInput = document.getElementById('email').value;
+        const passwordInput = document.getElementById('password').value;
 
-        const passwordValid = isPasswordValid();
-        document.getElementById('logar').disabled = !emailValid || !passwordValid;
-    }
+        // Credenciais fictícias
+        const fictitiousEmail = 'teste@example.com';
+        const fictitiousPassword = 'Senha123';
 
-    function isEmailValid() {
-        const email = document.getElementById("email").value;
-        if (!email) {
-            return false
+        // Verifica se as credenciais coincidem
+        if (emailInput === fictitiousEmail && passwordInput === fictitiousPassword) {
+            alert('Login bem-sucedido!'); // Pode ser substituído por redirecionamento ou outra ação desejada
+            window.location.href = "menu.html";
+        } else {
+            alert('Credenciais inválidas. Tente novamente.');
         }
-        return validateEmail(email);
-    }
-
-    function isPasswordValid() {
-        const password = document.getElementById('password').value;
-        if (!password) {
-            return false;
-        }
-        return true;
-    }
-
-    function validateEmail(email) {
-        return /\S+@\S+\.\S+/.test(email);
     }
 </script>
 
