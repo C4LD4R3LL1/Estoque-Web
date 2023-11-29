@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Produto</title>
+    <link rel="stylesheet" type="text/css" href="menu_produtos.css">
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #253148;
+    }
+    
+    .container {
+        max-width: 600px;
+        background-color: #5A91A2;
+        padding: 20px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+    }
+    
+    #Nome_produto {
+        width: 96%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    #Fornecedor {
+        width: 96%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    #Valor_compra {
+        width: 80%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    #Valor_venda {
+        width: 92%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    #Peso {
+        width: 108%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    #Quantidade {
+        width: 92%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    #Descricao {
+        width: 96%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .input-group {
+        margin-bottom: 20px;
+    }
+    
+    .input-group label {
+        font-weight: bold;
+    }
+    
+    .input-group input {
+        width: 90%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .input-split {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .description {
+        margin-top: 20px;
+    }
+    
+    .description label {
+        font-weight: bold;
+    }
+    
+    .description textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="input-group">
+            <label for="Nome_produto">Nome do Produto</label>
+            <input type="text" id="Nome_produto" name="Nome_produto">
+        </div>
+
+        <div class="input-group">
+            <label for="Fornecedor">Fornecedor</label>
+            <input type="text" id="Fornecedor" name="Fornecedor">
+        </div>
+
+        <div class="input-group">
+            <div class="input-split">
+                <div>
+                    <label for="Valor_compra">Valor de Compra</label>
+                    <input type="text" id="Valor_compra" name="Valor_compra">
+                </div>
+                <div>
+                    <label for="Valor_venda">Valor de Venda</label>
+                    <input type="text" id="Valor_venda" name="Valor_venda">
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-split">
+                <div>
+                    <label for="Peso">Peso</label>
+                    <input type="text" id="Peso" name="Peso">
+                </div>
+                <div>
+                    <label for="Quantidade">Quantidade</label>
+                    <input type="text" id="Quantidade" name="Quantidade">
+                </div>
+            </div>
+        </div>
+
+        <div class="description">
+            <label for="Descricao">Descrição</label>
+            <textarea id="Descricao" name="Descricao" rows="5"></textarea>
+        </div>
+    </div>
+</body>
+
+</html>

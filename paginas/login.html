@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="stylesheet" href="login.css">
+    <title>login</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        background-color: #0d5f88;
+    }
+    
+    form {
+        background-color: white;
+        max-width: 500px;
+        width: 70%;
+        padding: 20px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+    }
+    
+    form h3 {
+        text-align: center;
+        color: #0d5f88;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: xx-large;
+    }
+    
+    form input[type=text],
+    form input[type=password] {
+        width: 100%;
+        height: 45px;
+        border: 1px solid #ccc;
+        padding-left: 10px;
+        margin: 7px 0;
+    }
+    
+    form input[type=submit] {
+        width: 100%;
+        height: 40px;
+        cursor: pointer;
+        background: #0d5f88;
+        color: white;
+        border: 0;
+        border-radius: 20px;
+        transition: 1s;
+        margin: 2px;
+    }
+    
+    form input[type=submit]:hover {
+        background-color: #276f93;
+    }
+    
+    .separador {
+        content: ' ';
+        display: block;
+        width: 100%;
+        height: 2px;
+        margin-top: 7px;
+        background: -webkit-linear-gradient(left, rgba(147, 184, 189, 0) 0%, rgba(147, 184, 189, 0.8) 20%, rgba(147, 184, 189, 1) 53%, rgba(147, 184, 189, 0.8) 79%, rgba(147, 184, 189, 0) 100%);
+    }
+</style>
+
+<body>
+    <form>
+        <h3>Login</h3>
+        <h1 class="separador"></h1>
+        <input type="text" name="email" id="email" placeholder="Seu email..." onchange="validateFields()">
+        <input type="password" name="senha" id="password" placeholder="Sua senha...">
+        <input type="submit" name="Recuperarsenha" id="rec-senha" value="Recuperar Senha" disabled="true">
+        <input type="submit" name="acao" id="logar" value="Logar" disabled="true">
+        <input type="submit" name="registerr" value="Registrar" disabled="true">
+    </form>
+</body>
+
+<script>
+    function validateFields() {
+        const emailValid = isEmailValid();
+        document.getElementById('rec-senha').disabled = !emailValid;
+
+        const passwordValid = isPasswordValid();
+        document.getElementById('logar').disabled = !emailValid || !passwordValid;
+    }
+
+    function isEmailValid() {
+        const email = document.getElementById("email").value;
+        if (!email) {
+            return false
+        }
+        return validateEmail(email);
+    }
+
+    function isPasswordValid() {
+        const password = document.getElementById('password').value;
+        if (!password) {
+            return false;
+        }
+        return true;
+    }
+
+    function validateEmail(email) {
+        return /\S+@\S+\.\S+/.test(email);
+    }
+</script>
+
+</html>
