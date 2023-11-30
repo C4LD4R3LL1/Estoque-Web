@@ -1,173 +1,139 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Formulário de Produto</title>
-    <link rel="stylesheet" type="text/css" href="menu_produtos.css">
-</head>
-
-<style>
+  <meta charset="UTF-8">
+  <title>Menu de Produtos</title>
+  <link rel="stylesheet" href="menu_produto.css">
+  <style>
     body {
-        font-family: Arial, sans-serif;
-        background-color: #253148;
-    }
-    
-    .container {
-        max-width: 600px;
-        background-color: #5A91A2;
-        padding: 20px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 10px;
-    }
-    
-    #Nome_produto {
-        width: 96%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    #Fornecedor {
-        width: 96%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    #Valor_compra {
-        width: 80%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    #Valor_venda {
-        width: 92%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    #Peso {
-        width: 108%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    #Quantidade {
-        width: 92%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    #Descricao {
-        width: 96%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    .input-group {
-        margin-bottom: 20px;
-    }
-    
-    .input-group label {
-        font-weight: bold;
-    }
-    
-    .input-group input {
-        width: 90%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    .input-split {
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .description {
-        margin-top: 20px;
-    }
-    
-    .description label {
-        font-weight: bold;
-    }
-    
-    .description textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-</style>
+    font-family: Arial, sans-serif;
+    background-color: #253148;
+    margin: 0;
+    padding: 0;
+}
 
+.container {
+    max-width: 1000px;
+    background-color: #ffffff;
+    margin: 100px auto;
+    padding: 20px;
+    position: relative;
+    border-radius: 10px;
+    height: 500px;
+}
+
+.titulo{
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    position: relative; /* Alterado para relative */
+}
+
+.quantidade {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    position: relative; /* Alterado para relative */
+    right: -10px;
+}
+
+
+.titulo::after,.preco::after{
+    content: '';
+    position: absolute;
+    top: -20px; /* Ajuste a posição vertical da linha */
+    right: -10px; /* Posição ajustada para ficar à direita do texto "Produto" */
+    bottom: 0;
+    width: 1%;
+    height: 2420%; /* Altere o valor para aumentar o tamanho vertical da linha */
+    background-color: #000000; /* Cor da linha (preto neste caso) */
+}   
+
+.quantidade::after, .valor::after {
+    content: '';
+    position: absolute;
+    top: -20px; /* Ajuste a posição vertical da linha */
+    right: -10px; /* Posição ajustada para ficar à direita do texto "Produto" */
+    bottom: 0;
+    width: 1px;
+    height: 2420%; /* Altere o valor para aumentar o tamanho vertical da linha */
+    background-color: #000000; /* Cor da linha (preto neste caso) */
+}   
+
+.linha {
+    position: absolute;
+    bottom: 480px; /* Posição ajustada para ficar abaixo do texto "Produto" */
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #000; /* Cor da linha (preto neste caso) */
+}
+
+.linha-quantidade {
+    position: absolute;
+    top: 30px; /* Ajuste a posição vertical da linha */
+    right: -10px; /* Posição ajustada para ficar à direita do texto "Quantidade em Estoque" */
+    bottom: 0;
+    width: 1px;
+    background-color: #000;
+}
+
+.preco {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    right: -30px; 
+}
+
+.linha-preco {
+    position: absolute;
+    top: 60px; /* Ajuste a posição vertical da linha */
+    right: -10px; /* Posição ajustada para ficar à direita do texto "Preço Unitário" */
+    bottom: 0;
+    width: 1px;
+    background-color: #000;
+}
+
+.valor {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    right: -50px; /* Ajuste para alinhar com os outros rótulos */
+}
+
+.linha-valor {
+    position: absolute;
+    top: 90px; /* Ajuste a posição vertical da linha */
+    right: -10px; /* Posição ajustada para ficar à direita do texto "Valor em Estoque" */
+    bottom: 0;
+    width: 1px;
+    background-color: #000;
+}
+  </style>
+</head>
 <body>
-    <div class="container">
-        <div class="input-group">
-            <label for="Nome_produto">Nome do Produto</label>
-            <input type="text" id="Nome_produto" name="Nome_produto">
-        </div>
+  <div class="container">
+    <label for="Produto" class="titulo">Produto</label>
+    <div class="linha"></div>
 
-        <div class="input-group">
-            <label for="Fornecedor">Fornecedor</label>
-            <input type="text" id="Fornecedor" name="Fornecedor">
-        </div>
+    <label for="Quantidade" class="quantidade">Quantidade em Estoque</label>
+    <div class="linha-quantidade"></div>
 
-        <div class="input-group">
-            <div class="input-split">
-                <div>
-                    <label for="Valor_compra">Valor de Compra</label>
-                    <input type="text" id="Valor_compra" name="Valor_compra">
-                </div>
-                <div>
-                    <label for="Valor_venda">Valor de Venda</label>
-                    <input type="text" id="Valor_venda" name="Valor_venda">
-                </div>
-            </div>
-        </div>
+    <label for="Preco" class="preco">Preço Unitário</label>
+    <div class="linha-preco"></div>
 
-        <div class="input-group">
-            <div class="input-split">
-                <div>
-                    <label for="Peso">Peso</label>
-                    <input type="text" id="Peso" name="Peso">
-                </div>
-                <div>
-                    <label for="Quantidade">Quantidade</label>
-                    <input type="text" id="Quantidade" name="Quantidade">
-                </div>
-            </div>
-        </div>
+    <label for="Valor" class="valor">Valor em Estoque</label>
+    <div class="linha-valor"></div>
 
-        <div class="description">
-            <label for="Descricao">Descrição</label>
-            <textarea id="Descricao" name="Descricao" rows="5"></textarea>
-        </div>
-    </div>
+  </div>
+
+  
 </body>
-
 </html>
+
