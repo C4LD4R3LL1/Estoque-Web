@@ -82,21 +82,22 @@
 </body>
 
 <script>
+    function register(){
+
+    }
     function validateLogin() {
         const emailInput = document.getElementById('email').value;
         const passwordInput = document.getElementById('password').value;
 
         // Credenciais fictícias
         const fictitiousEmail = 'teste@example.com';
-        const fictitiousPassword = 'Senha123';
+        const fictitiousPassword = '123';
 
         // Verifica se as credenciais coincidem
         if (emailInput === fictitiousEmail && passwordInput === fictitiousPassword) {
-            alert('Login bem-sucedido!'); // Pode ser substituído por redirecionamento ou outra ação desejada
-            window.location.href = "menu.html";
-        } else {
-            alert('Credenciais inválidas. Tente novamente.');
-        }
+            window.location.href = "/menu.html"; 
+            
+        } else {}
     }
 </script>
 

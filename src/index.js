@@ -27,6 +27,10 @@ app.get("/cadastro_produtos.html", (req, res) => {
     res.sendFile(path.join(__dirname, "../paginas", "cadastro_produtos.html"));
 });
 
+app.get("/menu_produtos.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../paginas", "menu_produtos.html"));
+});
+
 app.use(express.static("public"));
 
 app.listen(3333, () => {
