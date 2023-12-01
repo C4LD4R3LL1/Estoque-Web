@@ -11,33 +11,33 @@
             margin: 20px;
             background-color: #0d5f88;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-        
+
         td {
             background-color: #ffffff;
             border: 1px solid #000000;
         }
-        
+
         table,
         th {
             border: 1px solid #000000;
         }
-        
+
         th,
         td {
             padding: 12px;
             text-align: left;
         }
-        
+
         th {
             background-color: #5a91a2;
         }
-        
+
         button {
             width: 100%;
             height: 40px;
@@ -49,7 +49,7 @@
             transition: 1.5s;
             margin: 2px;
         }
-        
+
         button:hover {
             background-color: #5a91a2;
             -ms-transform: scale(0.89);
@@ -62,18 +62,20 @@
             align-items: center;
             color: black;
         }
-        
+
         #totalValue,
         #totalCommission {
             color: rgb(220, 220, 220);
             margin-top: 10px;
         }
-        .caixa{
+
+        .caixa {
             max-width: 100%;
             background-color: white;
             border-radius: 7px;
         }
-        .input{
+
+        .input {
             background-color: beige;
             border-radius: 5px;
         }
@@ -81,19 +83,21 @@
 </head>
 
 <body>
-<div class="caixa">
-    <h1 class="textolista">Lista de Vendas</h1>
+    <div class="caixa">
+        <h1 class="textolista">Lista de Vendas</h1>
 
-    <form id="salesForm">
-        <label for="salespersonName" class="texto">Nome Funcionário:</label>
-        <input class="input" type="text" id="salespersonName" required>
+        <form id="salesForm">
+            <label for="salespersonName" class="texto">Nome Funcionário:</label>
+            <input class="input" type="text" id="salespersonName" required>
 
-        <label for="salesValue" class="texto">Valor venda:</label>
-        <input class="input" type="number" id="salesValue" required>
+            <label for="salesValue" class="texto">Valor venda:</label>
+            <input class="input" type="number" id="salesValue" required>
 
-        <button type="button" id="botao" onclick="addProduct()">Adicionar Venda</button>
-    </form>
-</div>
+            <button type="button" id="botao" onclick="addProduct()">Adicionar Venda</button>
+            <button type="button" id="limparLista" onclick="clearSalesList()">Limpar Lista</button>
+        </form>
+    </div>
+
     <table id="salesTable">
         <thead>
             <tr>
@@ -112,6 +116,7 @@
 
     <label for="totalCommission" class="texto">Comissão total:</label>
     <div id="totalCommission" class="texto">$0.00</div>
+
     <script>
         function addProduct() {
             const salespersonName = document.getElementById('salespersonName').value;
@@ -162,8 +167,12 @@
             document.getElementById('totalValue').innerText = `$${total.toFixed(2)}`;
             document.getElementById('totalCommission').innerText = `$${totalCommission.toFixed(2)}`;
         }
+
+        function clearSalesList() {
+            const table = document.getElementById('salesTable').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+            updateTotalValue();
+        }
     </script>
-
 </body>
-
 </html>

@@ -11,34 +11,33 @@
             margin: 20px;
             background-color: #0d5f88;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            
         }
-        
+
         td {
-            background-color:   #ffffff;
+            background-color: #ffffff;
             border: 1px solid #000000;
         }
-        
+
         table,
         th {
             border: 1px solid #000000;
         }
-        
+
         th,
         td {
             padding: 12px;
             text-align: left;
         }
-        
+
         th {
             background-color: #5a91a2;
         }
-        
+
         button {
             width: 100%;
             height: 40px;
@@ -50,10 +49,9 @@
             transition: 1.5s;
             margin: 2px;
         }
-        
+
         button:hover {
             background-color: #5a91a2;
-            
             -ms-transform: scale(0.89);
             transform: scale(.89);
         }
@@ -64,12 +62,14 @@
             align-items: center;
             color: black;
         }
-        .caixa{
+
+        .caixa {
             max-width: 100%;
             background-color: white;
             border-radius: 7px;
         }
-        .input{
+
+        .input {
             background-color: beige;
             border-radius: 5px;
         }
@@ -77,27 +77,29 @@
 </head>
 
 <body>
-<div class="caixa">
-    <h1 class="textolista">Lista de Produtos</h1>
+    <div class="caixa">
+        <h1 class="textolista">Lista de Produtos</h1>
 
-    <form id="productForm">
-        <label for="productName" class="texto">Nome do Produto:</label>
-        <input class="input" type="text" id="productName" required>
+        <form id="productForm">
+            <label for="productName" class="texto">Nome do Produto:</label>
+            <input class="input" type="text" id="productName" required>
 
-        <label for="productQuantity" class="texto">Quantidade:</label>
-        <input class="input" type="number" id="productQuantity" required>
+            <label for="productQuantity" class="texto">Quantidade:</label>
+            <input class="input" type="number" id="productQuantity" required>
 
-        <label for="productCost" class="texto">Valor de Compra:</label>
-        <input class="input" type="number" id="productCost" step="0.01" required>
+            <label for="productCost" class="texto">Valor de Compra:</label>
+            <input class="input" type="number" id="productCost" step="0.01" required>
 
-        <label for="productSale" class="texto">Valor de Venda:</label>
-        <input class="input" type="number" id="productSale" step="0.01" required>
+            <label for="productSale" class="texto">Valor de Venda:</label>
+            <input class="input" type="number" id="productSale" step="0.01" required>
 
-        <input type="hidden" id="productId" value="0">
+            <input type="hidden" id="productId" value="0">
 
-        <button type="button" id="botao" onclick="addProduct()">Adicionar Produto</button>
-    </form>
-</div>
+            <button type="button" id="botao" onclick="addProduct()">Adicionar Produto</button>
+            <button type="button" id="limparLista" onclick="clearProductList()">Limpar Lista</button>
+        </form>
+    </div>
+
     <table id="productTable">
         <thead>
             <tr>
@@ -106,6 +108,7 @@
                 <th>Valor de Compra</th>
                 <th>Valor de Venda</th>
                 <th>Total</th>
+                <th>Ação</th> 
             </tr>
         </thead>
         <tbody>
@@ -113,6 +116,15 @@
     </table>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const storedList = localStorage.getItem('productList');
+            if (storedList) {
+                document.getElementById('productTable').getElementsByTagName('tbody')[0].innerHTML = storedList;
+                updateTotalValue();
+            }
+        });
+
         function addProduct() {
             const productName = document.getElementById('productName').value;
             const productQuantity = document.getElementById('productQuantity').value;
@@ -124,7 +136,6 @@
                 return;
             }
 
-            // Simulando dados do backend
             const productData = {
                 produto: {
                     NOME: productName,
@@ -135,37 +146,110 @@
             };
 
             const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow(table.rows.length);
+            let existingRow = findProductRow(productName);
 
-            const nameCell = newRow.insertCell(0);
-            const quantityCell = newRow.insertCell(1);
-            const costCell = newRow.insertCell(2);
-            const saleCell = newRow.insertCell(3);
-            const totalCell = newRow.insertCell(4);
+            if (existingRow) {
+                updateProductValues(existingRow, productData.produto);
+            } else {
+                const newRow = table.insertRow(table.rows.length);
 
-            nameCell.innerHTML = productName;
-            quantityCell.innerHTML = productQuantity;
-            costCell.innerHTML = `$${productCost}`;
-            saleCell.innerHTML = `$${productSale}`;
+                const nameCell = newRow.insertCell(0);
+                const quantityCell = newRow.insertCell(1);
+                const costCell = newRow.insertCell(2);
+                const saleCell = newRow.insertCell(3);
+                const totalCell = newRow.insertCell(4);
+                const actionCell = newRow.insertCell(5); 
 
-            totalCell.innerHTML = `$${(productData.produto.VALOR_COMPRA * productData.produto.QUANTIDADE).toFixed(2)}`;
+                nameCell.innerHTML = productName;
+                quantityCell.innerHTML = productQuantity;
+                costCell.innerHTML = `$${productCost}`;
+                saleCell.innerHTML = `$${productSale}`;
+
+                totalCell.innerHTML = `$${(productData.produto.VALOR_COMPRA * productData.produto.QUANTIDADE).toFixed(2)}`;
+                actionCell.innerHTML = '<button onclick="removeProduct(this)">Remover</button>';
+            }
 
             updateTotalValue();
 
+           
+            localStorage.setItem('productList', table.innerHTML);
+
             document.getElementById('productName').value = '';
-            document.getElementById('productQuantity').value = '';
             document.getElementById('productCost').value = '';
             document.getElementById('productSale').value = '';
             document.getElementById('productId').value = '0';
         }
 
+        function findProductRow(productName) {
+            const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            for (let i = 0; i < table.rows.length; i++) {
+                const nameCell = table.rows[i].cells[0];
+                if (nameCell.innerHTML === productName) {
+                    return table.rows[i];
+                }
+            }
+            return null;
+        }
+
+        function updateProductValues(row, updatedProduct) {
+            const quantityCell = row.cells[1];
+            const costCell = row.cells[2];
+            const saleCell = row.cells[3];
+            const totalCell = row.cells[4];
+
+            let currentQuantity = parseInt(quantityCell.innerHTML);
+            currentQuantity += updatedProduct.QUANTIDADE;
+            quantityCell.innerHTML = currentQuantity;
+
+            costCell.innerHTML = `$${updatedProduct.VALOR_COMPRA.toFixed(2)}`;
+            saleCell.innerHTML = `$${updatedProduct.VALOR_VENDA.toFixed(2)}`;
+            totalCell.innerHTML = `$${(updatedProduct.VALOR_COMPRA * currentQuantity).toFixed(2)}`;
+        }
+
+        function removeProduct(button) {
+        const row = button.parentNode.parentNode;
+        const productName = row.cells[0].innerHTML;
+
+        const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+        const quantityCell = row.cells[1];
+        let currentQuantity = parseInt(quantityCell.innerHTML);
+
+
+        const quantityToRemove = parseInt(prompt('Informe a quantidade a ser removida:', '1'));
+
+        if (isNaN(quantityToRemove) || quantityToRemove < 0) {
+            alert('Por favor, informe uma quantidade válida.');
+            return;
+        }
+
+  
+        const newQuantity = Math.max(0, currentQuantity - quantityToRemove);
+
+        if (newQuantity === 0) {
+ 
+            row.remove();
+        } else {
+
+            quantityCell.innerHTML = newQuantity;
+        }
+
+        updateTotalValue();
+        let updatedList = '';
+        for (let i = 0; i < table.rows.length; i++) {
+            updatedList += '<tr>' + table.rows[i].innerHTML + '</tr>';
+        }
+        localStorage.setItem('productList', updatedList);
+    }
+        function clearProductList() {
+            const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            table.innerHTML = '';
+            localStorage.removeItem('productList');
+            updateTotalValue();
+        }
+
         function updateTotalValue() {
-            // Implemente a lógica para atualizar o valor total, se necessário
+           
         }
     </script>
 </body>
-
-</html>
-</body>
-
 </html>
