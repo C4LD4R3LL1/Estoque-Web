@@ -9,17 +9,19 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #253148;
+            background-color: #0d5f88;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            
         }
         
         td {
-            background-color: #5a91a2;
+            background-color:   #ffffff;
+            border: 1px solid #000000;
         }
         
         table,
@@ -38,47 +40,64 @@
         }
         
         button {
-            padding: 10px;
-            margin-top: 10px;
-            background-color: #dd693e;
-            transition: 1s;
+            width: 100%;
+            height: 40px;
             cursor: pointer;
+            background: #0d5f88;
+            color: white;
+            border: 0;
+            border-radius: 20px;
+            transition: 1.5s;
+            margin: 2px;
         }
         
         button:hover {
-            background-color: #b96243;
+            background-color: #5a91a2;
+            
+            -ms-transform: scale(0.89);
+            transform: scale(.89);
         }
-        
-        .texto {
-            color: rgb(220, 220, 220);
-            border: #000000;
+
+        .textolista {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+        .caixa{
+            max-width: 100%;
+            background-color: white;
+            border-radius: 7px;
+        }
+        .input{
+            background-color: beige;
+            border-radius: 5px;
         }
     </style>
 </head>
 
 <body>
-
-    <h1 class="texto">Lista de Produtos</h1>
+<div class="caixa">
+    <h1 class="textolista">Lista de Produtos</h1>
 
     <form id="productForm">
         <label for="productName" class="texto">Nome do Produto:</label>
-        <input type="text" id="productName" required>
+        <input class="input" type="text" id="productName" required>
 
         <label for="productQuantity" class="texto">Quantidade:</label>
-        <input type="number" id="productQuantity" required>
+        <input class="input" type="number" id="productQuantity" required>
 
         <label for="productCost" class="texto">Valor de Compra:</label>
-        <input type="number" id="productCost" step="0.01" required>
+        <input class="input" type="number" id="productCost" step="0.01" required>
 
         <label for="productSale" class="texto">Valor de Venda:</label>
-        <input type="number" id="productSale" step="0.01" required>
+        <input class="input" type="number" id="productSale" step="0.01" required>
 
-        <!-- Campo oculto para o ID automático -->
         <input type="hidden" id="productId" value="0">
 
         <button type="button" id="botao" onclick="addProduct()">Adicionar Produto</button>
     </form>
-
+</div>
     <table id="productTable">
         <thead>
             <tr>
@@ -87,7 +106,6 @@
                 <th>Valor de Compra</th>
                 <th>Valor de Venda</th>
                 <th>Total</th>
-                <!-- Total column -->
             </tr>
         </thead>
         <tbody>
@@ -95,68 +113,59 @@
     </table>
 
     <script>
-        async function addProduct() {
+        function addProduct() {
             const productName = document.getElementById('productName').value;
             const productQuantity = document.getElementById('productQuantity').value;
             const productCost = document.getElementById('productCost').value;
             const productSale = document.getElementById('productSale').value;
-            const productId = document.getElementById('productId').value;
 
             if (!productName || !productQuantity || !productCost || !productSale) {
                 alert('Por favor, preencha todos os campos.');
                 return;
             }
 
-            try {
-                const response = await fetch('/cadastro_produto.html', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        nome: productName,
-                        valorCompra: productCost,
-                        valorVenda: productSale,
-                        quantidade: productQuantity,
-                    }),
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.erro);
+            // Simulando dados do backend
+            const productData = {
+                produto: {
+                    NOME: productName,
+                    VALOR_COMPRA: parseFloat(productCost),
+                    VALOR_VENDA: parseFloat(productSale),
+                    QUANTIDADE: parseInt(productQuantity),
                 }
+            };
 
-                const productData = await response.json();
+            const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow(table.rows.length);
 
-                const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
-                const newRow = table.insertRow(table.rows.length);
+            const nameCell = newRow.insertCell(0);
+            const quantityCell = newRow.insertCell(1);
+            const costCell = newRow.insertCell(2);
+            const saleCell = newRow.insertCell(3);
+            const totalCell = newRow.insertCell(4);
 
-                const nameCell = newRow.insertCell(0);
-                const quantityCell = newRow.insertCell(1);
-                const costCell = newRow.insertCell(2);
-                const saleCell = newRow.insertCell(3);
-                const totalCell = newRow.insertCell(4); // Total cell
+            nameCell.innerHTML = productName;
+            quantityCell.innerHTML = productQuantity;
+            costCell.innerHTML = `$${productCost}`;
+            saleCell.innerHTML = `$${productSale}`;
 
-                nameCell.innerHTML = productName;
-                quantityCell.innerHTML = productQuantity;
-                costCell.innerHTML = `$${productCost}`;
-                saleCell.innerHTML = `$${productSale}`;
+            totalCell.innerHTML = `$${(productData.produto.VALOR_COMPRA * productData.produto.QUANTIDADE).toFixed(2)}`;
 
-                totalCell.innerHTML = `$${productData.produto.VALOR_COMPRA * productData.produto.QUANTIDADE}`;
+            updateTotalValue();
 
-                updateTotalValue(); // Call function to update total value
+            document.getElementById('productName').value = '';
+            document.getElementById('productQuantity').value = '';
+            document.getElementById('productCost').value = '';
+            document.getElementById('productSale').value = '';
+            document.getElementById('productId').value = '0';
+        }
 
-                document.getElementById('productName').value = '';
-                document.getElementById('productQuantity').value = '';
-                document.getElementById('productCost').value = '';
-                document.getElementById('productSale').value = '';
-                document.getElementById('productId').value = '0'; // Resetar o ID
-            } catch (error) {
-                console.error('Error adding product:', error);
-                alert(error.message || 'Erro ao adicionar produto. Por favor, tente novamente.');
-            }
+        function updateTotalValue() {
+            // Implemente a lógica para atualizar o valor total, se necessário
         }
     </script>
+</body>
+
+</html>
 </body>
 
 </html>

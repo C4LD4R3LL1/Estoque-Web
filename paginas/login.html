@@ -59,7 +59,20 @@
     form input[type=submit]:hover {
         background-color: #276f93;
     }
-    
+    .button{
+        width: 100%;
+        height: 40px;
+        cursor: pointer;
+        background: #0d5f88;
+        color: white;
+        border: 0;
+        border-radius: 20px;
+        transition: 1s;
+        margin: 2px;
+    }
+    .button:hover{
+        background-color: #276f93;
+    }
     .separador {
         content: ' ';
         display: block;
@@ -76,14 +89,14 @@
         <h1 class="separador"></h1>
         <input type="text" name="email" id="email" onchange="validateLogin()" placeholder="Seu email...">
         <input type="password" name="senha" id="password" onchange="validateLogin()" placeholder="Sua senha...">
-        <input type="submit" name="acao" id="logar" onchange="validateLogin()" value="Logar">
-        <input type="submit" name="registerr" value="Registrar">
+        <input type="submit" name="acao" id="logar" onclick="validateLogin()" value="Logar">
+        <input class="button" type="button" id="register" name="registerr" onclick="register()" value="Registrar">
     </form>
 </body>
 
 <script>
     function register() {
-
+        window.location.href = "cadastro_funcionario.html";
     }
 
     function validateLogin() {
@@ -98,7 +111,9 @@
         if (emailInput === fictitiousEmail && passwordInput === fictitiousPassword) {
             window.location.href = "/menu.html";
 
-        } else {}
+        } else {
+            alert("senha incorreta")
+        }
     }
 </script>
 
