@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Vendas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #253148;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        td {
+            background-color: #5a91a2;
+        }
+        
+        table,
+        th {
+            border: 1px solid #000000;
+        }
+        
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #5a91a2;
+        }
+        
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #dd693e;
+            transition: 1s;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #b96243;
+        }
+        
+        .texto {
+            color: rgb(220, 220, 220);
+            border: #000000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 class="texto">Lista de Vendas</h1>
+
+    <form id="salesForm">
+        <label for="salespersonName" class="texto">Nome Funcionário:</label>
+        <input type="text" id="salespersonName" required>
+
+        <label for="salesValue" class="texto">Valor venda:</label>
+        <input type="number" id="salesValue" required>
+
+        <button type="button" id="botao" onclick="addProduct()">Adicionar Venda</button>
+    </form>
+
+    <table id="salesTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Valor venda</th>
+                <th>Total</th>
+                <th>Comissão</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <label for="totalValue" class="texto">Soma total de vendas:</label>
+    <div id="totalValue" class="texto">$0.00</div>
+    <!-- Display total value here -->
+
+    <label for="totalCommission" class="texto">Comissão total:</label>
+    <div id="totalCommission" class="texto">$0.00</div>
+    <!-- Display total commission here -->
+
+    <script>
+        function addProduct() {
+            const salespersonName = document.getElementById('salespersonName').value;
+            const salesValue = document.getElementById('salesValue').value;
+
+            if (!salespersonName || !salesValue) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            const table = document.getElementById('salesTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow(table.rows.length);
+
+            const nameCell = newRow.insertCell(0);
+            const valueCell = newRow.insertCell(1);
+            const totalCell = newRow.insertCell(2); // Total cell
+            const commissionCell = newRow.insertCell(3); // Commission cell
+
+            nameCell.innerHTML = salespersonName;
+            valueCell.innerHTML = `$${salesValue}`;
+
+            const totalValue = parseFloat(salesValue);
+            totalCell.innerHTML = `$${totalValue.toFixed(2)}`;
+
+            const commissionValue = totalValue * 0.07;
+            commissionCell.innerHTML = `$${commissionValue.toFixed(2)}`;
+
+            updateTotalValue(); // Call function to update total value
+
+            document.getElementById('salespersonName').value = '';
+            document.getElementById('salesValue').value = '';
+        }
+
+        function updateTotalValue() {
+            const table = document.getElementById('salesTable').getElementsByTagName('tbody')[0];
+            const rows = table.getElementsByTagName('tr');
+            let total = 0;
+            let totalCommission = 0;
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                const totalCell = parseFloat(cells[2].innerText.substring(1));
+                const commissionCell = parseFloat(cells[3].innerText.substring(1));
+                total += totalCell;
+                totalCommission += commissionCell;
+            }
+
+            document.getElementById('totalValue').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('totalCommission').innerText = `$${totalCommission.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+
+</html>

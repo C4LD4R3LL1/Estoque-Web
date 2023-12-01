@@ -4,7 +4,11 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const app = express();
-const db = require('./db');
+const db = require('./db.js');
+
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(router);
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,16 +27,44 @@ app.get("/cadastro_funcionario.html", (req, res) => {
     res.sendFile(path.join(__dirname, "../paginas", "cadastro_funcionario.html"));
 });
 
-app.get("/cadastro_produtos.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "../paginas", "cadastro_produtos.html"));
+app.get("/menu_vendas.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../paginas", "menu_vendas.html"));
 });
 
-app.get("/menu_produtos.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "../paginas", "menu_produtos.html"));
+app.get("/cadastro_produto.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../paginas", "cadastro_produto.html"));
 });
+
+app.get("/login.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "../paginas", "login.html"));
+});
+
 
 app.use(express.static("public"));
 
+app.post("/cadastro_produto.html", async(req, res) => {
+    const { nome, valorCompra, valorVenda, quantidade } = req.body;
+
+    try {
+        const novoProduto = await Produto.create({
+            NOME: nome,
+            VALOR_COMPRA: valorCompra,
+            VALOR_VENDA: valorVenda,
+            QUANTIDADE: quantidade
+        });
+
+        res.status(201).json({
+            mensagem: 'Produto adicionado com sucesso',
+            produto: novoProduto
+        });
+    } catch (error) {
+        console.error('Erro ao adicionar produto:', error);
+
+        // Envie detalhes do erro no corpo da resposta
+        res.status(500).json({ erro: 'Erro interno do servidor.', detalhes: error.message });
+    }
+});
+
 app.listen(3333, () => {
-    console.log("Servidor pocando")
+    console.log("Servidor pocando");
 });
