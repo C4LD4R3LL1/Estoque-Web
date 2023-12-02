@@ -132,8 +132,8 @@
 
             const nameCell = newRow.insertCell(0);
             const valueCell = newRow.insertCell(1);
-            const totalCell = newRow.insertCell(2); // Total cell
-            const commissionCell = newRow.insertCell(3); // Commission cell
+            const totalCell = newRow.insertCell(2); 
+            const commissionCell = newRow.insertCell(3); 
 
             nameCell.innerHTML = salespersonName;
             valueCell.innerHTML = `$${salesValue}`;
@@ -144,7 +144,7 @@
             const commissionValue = totalValue * 0.07;
             commissionCell.innerHTML = `$${commissionValue.toFixed(2)}`;
 
-            updateTotalValue(); // Call function to update total value
+            updateTotalValue(); 
 
             document.getElementById('salespersonName').value = '';
             document.getElementById('salesValue').value = '';

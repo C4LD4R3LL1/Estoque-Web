@@ -4,47 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="seu-estilo.css">
     <title>Menu</title>
 </head>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-image: url(../Sistema.png);
-        height: 100%;
-        background-repeat: no-repeat;
-    }
+ body {
+    font-family: Arial, sans-serif;
+    background-image: url('/imagem');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+}
 
-    #menu {
-        display: flex;
-        background-color: #333;
-        overflow: hidden;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
+#menu {
+    display: flex;
+    background-color: #333;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
-    #menu a {
-        float: left;
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
+#menu a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 
-    #menu a:hover {
-        background-color: #ddd;
-        color: black;
-    }
+#menu a:hover {
+    background-color: #ddd;
+    color: black;
+}
 
-    #menu a.active {
-        background-color: #4CAF50;
-        color: white;
-    }
+#menu a.active {
+    background-color: #4CAF50;
+    color: white;
+}
 </style>
-
 <body>
     <div id="menu">
         <a href="cadastro_funcionario.html" onclick="openCadastroFuncionario()">Cadastro de Funcionário</a>

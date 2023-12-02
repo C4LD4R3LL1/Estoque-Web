@@ -39,6 +39,10 @@ app.get("/login.html", (req, res) => {
     res.sendFile(path.join(__dirname, "../paginas", "login.html"));
 });
 
+app.get('/imagem', (req, res) => {
+    const imagePath = path.join(__dirname, "../paginas", "Sistema.png"); 
+    res.sendFile(imagePath);
+});
 
 app.use(express.static("public"));
 
@@ -60,7 +64,6 @@ app.post("/cadastro_produto.html", async(req, res) => {
     } catch (error) {
         console.error('Erro ao adicionar produto:', error);
 
-        // Envie detalhes do erro no corpo da resposta
         res.status(500).json({ erro: 'Erro interno do servidor.', detalhes: error.message });
     }
 });
